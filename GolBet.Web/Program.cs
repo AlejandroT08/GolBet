@@ -1,0 +1,47 @@
+using GolBet.Repositories;
+using GolBet.Repositories.Common;
+using GolBet.Repositories.Data;
+using GolBet.Repositories.Data.Seed;
+using GolBet.Services;
+using GolBet.Services.Mapping;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<GolBetDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+
+builder.Services.AddScoped<IMatchService, MatchService>();
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<GolBetDbContext>();
+    DbSeeder.Seed(context);
+}
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();

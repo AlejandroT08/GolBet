@@ -1,0 +1,85 @@
+:root {
+    --golbet-green: #0b6e4f;
+    --golbet-green-dark: #084a35;
+    --golbet-green-light: #e9f7f1;
+}
+
+body {
+    background-color: #f5f7f6;
+}
+
+.golbet-navbar {
+    background-color: var(--golbet-green);
+}
+
+.golbet-footer {
+    background-color: #fff;
+}
+
+.golbet-hero {
+    background: linear-gradient(135deg, var(--golbet-green) 0%, var(--golbet-green-dark) 100%);
+    color: #fff;
+}
+
+.btn-golbet {
+    background-color: var(--golbet-green);
+    border-color: var(--golbet-green);
+    color: #fff;
+}
+
+.btn-golbet:hover,
+.btn-golbet:focus {
+    background-color: var(--golbet-green-dark);
+    border-color: var(--golbet-green-dark);
+    color: #fff;
+}
+
+.btn-golbet:disabled {
+    background-color: #9db8ae;
+    border-color: #9db8ae;
+}
+
+.btn-filter {
+    background-color: #fff;
+    border: 1px solid var(--golbet-green);
+    color: var(--golbet-green);
+}
+
+.btn-filter.active,
+.btn-filter:hover {
+    background-color: var(--golbet-green);
+    color: #fff;
+}
+
+.match-card {
+    border: none;
+    border-radius: 0.75rem;
+    transition: transform 0.15s ease-in-out;
+}
+
+.match-card:hover {
+    transform: translateY(-3px);
+}
+
+.team-shield {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.team-shield-lg {
+    width: 96px;
+    height: 96px;
+    object-fit: contain;
+}
+
+.match-detail-card {
+    border: none;
+    border-radius: 0.75rem;
+}
+
+.odds-box {
+    background-color: var(--golbet-green-light);
+    border-radius: 0.5rem;
+    padding: 1rem 0.5rem;
+}

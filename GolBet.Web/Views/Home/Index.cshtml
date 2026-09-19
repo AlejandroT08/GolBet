@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="p-5 mb-4 golbet-hero rounded-3">
+    <div class="container-fluid py-4 text-center">
+        <h1 class="display-5 fw-bold">⚽ Bienvenido a GolBet</h1>
+        <p class="fs-4">
+            La plataforma para seguir la cartelera de partidos, ver cuotas y, próximamente,
+            realizar tus apuestas.
+        </p>
+        <a class="btn btn-golbet btn-lg mt-2" asp-controller="Matches" asp-action="Index">
+            Ver cartelera de partidos
+        </a>
+    </div>
+</div>
+
+<div class="row text-center g-4 mb-4">
+    <div class="col-md-4">
+        <h3>📅 Cartelera</h3>
+        <p>Consulta todos los partidos programados, en juego y finalizados.</p>
+    </div>
+    <div class="col-md-4">
+        <h3>📊 Cuotas</h3>
+        <p>Revisa las cuotas 1&nbsp;X&nbsp;2 de cada partido antes de decidir.</p>
+    </div>
+    <div class="col-md-4">
+        <h3>🔍 Detalle</h3>
+        <p>Entra a cada partido para ver su información completa.</p>
+    </div>
+</div>
