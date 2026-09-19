@@ -20,7 +20,7 @@ public static class DbSeeder
             new() { Name = "Atlético Nacional", Country = "Colombia" },
             new() { Name = "Millonarios FC", Country = "Colombia" },
             new() { Name = "Deportivo Cali", Country = "Colombia" },
-            new() { Name = "Junior FC", Country = "Colombia" },
+            new() { Name = "Envigado FC", Country = "Colombia" },
             new() { Name = "América de Cali", Country = "Colombia" },
             new() { Name = "Independiente Medellín", Country = "Colombia" },
             new() { Name = "Once Caldas", Country = "Colombia" },

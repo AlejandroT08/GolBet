@@ -16,3 +16,4 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.BetsCount, opt => opt.MapFrom(src => src.Bets.Count));
     }
 }
+

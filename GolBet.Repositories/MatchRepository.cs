@@ -4,6 +4,7 @@ using GolBet.Repositories.Common;
 using GolBet.Repositories.Data;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace GolBet.Repositories;
 
 public class MatchRepository : GenericRepository<Match>, IMatchRepository
@@ -39,3 +40,4 @@ public class MatchRepository : GenericRepository<Match>, IMatchRepository
             .OrderBy(m => m.MatchDate)
             .ToListAsync();
 }
+
