@@ -77,7 +77,7 @@ En Visual Studio: abrir `GolBet.sln`, marcar **GolBet.Web** como proyecto de ini
 ## Funcionalidad
 
 - **`/`** — Página de inicio.
-- **`/Matches`** — Cartelera de partidos, con tarjetas (escudos o placeholder, fecha, badge de estado en español, marcador si aplica, cuotas 1 X 2) y filtro por estado vía querystring (`?status=Programado`, `EnJuego`, `Finalizado`).
+- **`/Matches`** — Cartelera de partidos, con tarjetas (escudos o placeholder, fecha, badge de estado en español, marcador si aplica, cuotas 1 X 2), buscador por nombre de equipo local o visitante (`?search=equipo`) y filtro por estado (`?status=Programado`, `EnJuego`, `Finalizado`). Ambos filtros conviven y se conservan mutuamente en la URL, incluyendo vista amigable de estado sin resultados con botón de retorno.
 - **`/Matches/Detail/{id}`** — Detalle del partido: breadcrumb, escudos, cuotas nombradas, contador de apuestas y botón de apuesta (deshabilitado para partidos en estado `Programado`). Un `id` inexistente responde `404`.
 
 ## Estructura de carpetas
