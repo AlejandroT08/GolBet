@@ -24,4 +24,5 @@ public class MatchDto
     public decimal AwayOdds { get; set; }
 
     public int BetsCount { get; set; }
+
 }
