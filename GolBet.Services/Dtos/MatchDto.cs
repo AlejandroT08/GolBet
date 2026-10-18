@@ -12,10 +12,6 @@ public class MatchDto
     public string AwayTeamName { get; set; } = string.Empty;
     public string? AwayTeamShieldUrl { get; set; }
 
-    public DateTime MatchDate { get; set; }
-
-    public MatchStatus Status { get; set; }
-
     public int? HomeScore { get; set; }
     public int? AwayScore { get; set; }
 
@@ -24,5 +20,8 @@ public class MatchDto
     public decimal AwayOdds { get; set; }
 
     public int BetsCount { get; set; }
+
+    public DateTime MatchDate { get; set; }
+    public MatchStatus Status { get; set; }
 
 }
