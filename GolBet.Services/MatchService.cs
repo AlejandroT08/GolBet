@@ -16,9 +16,9 @@ public class MatchService : IMatchService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<MatchDto>> GetAllAsync()
+    public async Task<IEnumerable<MatchDto>> GetAllAsync(MatchStatus? status = null, string? search = null)
     {
-        var matches = await _matchRepository.GetAllWithTeamsAsync();
+        var matches = await _matchRepository.GetAllWithTeamsAsync(status, search);
         return _mapper.Map<IEnumerable<MatchDto>>(matches);
     }
 

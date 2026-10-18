@@ -6,7 +6,7 @@ namespace GolBet.Repositories;
 
 public interface IMatchRepository : IGenericRepository<Match>
 {
-    Task<IEnumerable<Match>> GetAllWithTeamsAsync();
+    Task<IEnumerable<Match>> GetAllWithTeamsAsync(MatchStatus? status = null, string? search = null);
 
     Task<Match?> GetByIdWithTeamsAsync(int id);
 
