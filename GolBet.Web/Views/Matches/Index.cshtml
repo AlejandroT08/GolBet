@@ -2,75 +2,122 @@
 @{
     ViewData["Title"] = "Cartelera";
     string current = ViewBag.CurrentStatus as string ?? "";
+    string search = ViewBag.CurrentSearch as string ?? "";
 }
 
 <h1 class="mb-4">📅 Cartelera de Partidos</h1>
 
+<form method="get" asp-action="Index" class="mb-4">
+    @if (!string.IsNullOrEmpty(current))
+    {
+        <input type="hidden" name="status" value="@current" />
+    }
+    <div class="row g-2 align-items-center">
+        <div class="col-sm-8 col-md-6 col-lg-5">
+            <div class="input-group">
+                <input type="text"
+                       name="search"
+                       class="form-control"
+                       placeholder="Buscar por equipo..."
+                       value="@search" />
+                <button class="btn btn-golbet" type="submit">Buscar</button>
+            </div>
+        </div>
+        @if (!string.IsNullOrWhiteSpace(search))
+        {
+            <div class="col-auto">
+                <a class="btn btn-outline-secondary"
+                   asp-action="Index"
+                   asp-route-status="@(string.IsNullOrEmpty(current) ? null : current)">Limpiar</a>
+            </div>
+        }
+    </div>
+</form>
+
 <div class="btn-group mb-4 flex-wrap" role="group" aria-label="Filtro de partidos">
     <a class="btn btn-filter @(current == "" ? "active" : "")"
-       asp-action="Index">Todos</a>
+       asp-action="Index"
+       asp-route-search="@(string.IsNullOrWhiteSpace(search) ? null : search)">Todos</a>
     <a class="btn btn-filter @(current == nameof(MatchStatus.Programado) ? "active" : "")"
-       asp-action="Index" asp-route-status="@nameof(MatchStatus.Programado)">Programados</a>
+       asp-action="Index"
+       asp-route-status="@nameof(MatchStatus.Programado)"
+       asp-route-search="@(string.IsNullOrWhiteSpace(search) ? null : search)">Programados</a>
     <a class="btn btn-filter @(current == nameof(MatchStatus.EnJuego) ? "active" : "")"
-       asp-action="Index" asp-route-status="@nameof(MatchStatus.EnJuego)">En Juego</a>
+       asp-action="Index"
+       asp-route-status="@nameof(MatchStatus.EnJuego)"
+       asp-route-search="@(string.IsNullOrWhiteSpace(search) ? null : search)">En Juego</a>
     <a class="btn btn-filter @(current == nameof(MatchStatus.Finalizado) ? "active" : "")"
-       asp-action="Index" asp-route-status="@nameof(MatchStatus.Finalizado)">Finalizados</a>
+       asp-action="Index"
+       asp-route-status="@nameof(MatchStatus.Finalizado)"
+       asp-route-search="@(string.IsNullOrWhiteSpace(search) ? null : search)">Finalizados</a>
 </div>
 
 @if (!Model.Any())
 {
-    <div class="alert alert-info">No hay partidos para este filtro.</div>
+    <div class="alert alert-info py-4 text-center shadow-sm">
+        @if (!string.IsNullOrWhiteSpace(search))
+        {
+            <p class="fs-5 mb-3">No hay partidos para "@search"</p>
+        }
+        else
+        {
+            <p class="fs-5 mb-3">No hay partidos para este filtro.</p>
+        }
+        <a class="btn btn-golbet" asp-action="Index">Volver a la cartelera de partidos</a>
+    </div>
 }
-
-<div class="row g-4">
-    @foreach (var match in Model)
-    {
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 match-card shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="badge @match.Status.ToBadgeCssClass()">@match.Status.ToSpanishLabel()</span>
-                        <small class="text-muted">@match.MatchDate.ToString("dd/MM/yyyy hh:mm tt") (hora Colombia)</small>
-                    </div>
-
-                    <div class="d-flex justify-content-between align-items-center text-center my-3">
-                        <div class="team-block">
-                            <img class="team-shield"
-                                 src="@(string.IsNullOrEmpty(match.HomeTeamShieldUrl) ? Url.Content("~/images/placeholder-fc.svg") : match.HomeTeamShieldUrl)"
-                                 alt="Escudo @match.HomeTeamName" />
-                            <div class="small fw-semibold mt-1">@match.HomeTeamName</div>
+else
+{
+    <div class="row g-4">
+        @foreach (var match in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 match-card shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge @match.Status.ToBadgeCssClass()">@match.Status.ToSpanishLabel()</span>
+                            <small class="text-muted">@match.MatchDate.ToString("dd/MM/yyyy hh:mm tt") (hora Colombia)</small>
                         </div>
 
-                        <div class="score-block">
-                            @if (match.Status == MatchStatus.Finalizado || match.Status == MatchStatus.EnJuego)
-                            {
-                                <span class="fs-4 fw-bold">@match.HomeScore - @match.AwayScore</span>
-                            }
-                            else
-                            {
-                                <span class="fs-5 text-muted">vs</span>
-                            }
+                        <div class="d-flex justify-content-between align-items-center text-center my-3">
+                            <div class="team-block">
+                                <img class="team-shield"
+                                     src="@(string.IsNullOrEmpty(match.HomeTeamShieldUrl) ? Url.Content("~/images/placeholder-fc.svg") : match.HomeTeamShieldUrl)"
+                                     alt="Escudo @match.HomeTeamName" />
+                                <div class="small fw-semibold mt-1">@match.HomeTeamName</div>
+                            </div>
+
+                            <div class="score-block">
+                                @if (match.Status == MatchStatus.Finalizado || match.Status == MatchStatus.EnJuego)
+                                {
+                                    <span class="fs-4 fw-bold">@match.HomeScore - @match.AwayScore</span>
+                                }
+                                else
+                                {
+                                    <span class="fs-5 text-muted">vs</span>
+                                }
+                            </div>
+
+                            <div class="team-block">
+                                <img class="team-shield"
+                                     src="@(string.IsNullOrEmpty(match.AwayTeamShieldUrl) ? Url.Content("~/images/placeholder-fc.svg") : match.AwayTeamShieldUrl)"
+                                     alt="Escudo @match.AwayTeamName" />
+                                <div class="small fw-semibold mt-1">@match.AwayTeamName</div>
+                            </div>
                         </div>
 
-                        <div class="team-block">
-                            <img class="team-shield"
-                                 src="@(string.IsNullOrEmpty(match.AwayTeamShieldUrl) ? Url.Content("~/images/placeholder-fc.svg") : match.AwayTeamShieldUrl)"
-                                 alt="Escudo @match.AwayTeamName" />
-                            <div class="small fw-semibold mt-1">@match.AwayTeamName</div>
+                        <div class="d-flex justify-content-center gap-2 mb-3">
+                            <span class="badge bg-light text-dark border">1: @match.HomeOdds.ToString("0.00")</span>
+                            <span class="badge bg-light text-dark border">X: @match.DrawOdds.ToString("0.00")</span>
+                            <span class="badge bg-light text-dark border">2: @match.AwayOdds.ToString("0.00")</span>
                         </div>
-                    </div>
 
-                    <div class="d-flex justify-content-center gap-2 mb-3">
-                        <span class="badge bg-light text-dark border">1: @match.HomeOdds.ToString("0.00")</span>
-                        <span class="badge bg-light text-dark border">X: @match.DrawOdds.ToString("0.00")</span>
-                        <span class="badge bg-light text-dark border">2: @match.AwayOdds.ToString("0.00")</span>
-                    </div>
-
-                    <div class="text-center">
-                        <a class="btn btn-golbet btn-sm" asp-action="Detail" asp-route-id="@match.Id">Ver detalle</a>
+                        <div class="text-center">
+                            <a class="btn btn-golbet btn-sm" asp-action="Detail" asp-route-id="@match.Id">Ver detalle</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+}

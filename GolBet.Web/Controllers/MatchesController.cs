@@ -13,17 +13,23 @@ public class MatchesController : Controller
         _matchService = matchService;
     }
 
-    public async Task<IActionResult> Index(string? status)
+    public async Task<IActionResult> Index(string? status, string? search)
     {
+        MatchStatus? matchStatus = null;
+
         if (!string.IsNullOrWhiteSpace(status) && Enum.TryParse<MatchStatus>(status, true, out var parsedStatus))
         {
+            matchStatus = parsedStatus;
             ViewBag.CurrentStatus = parsedStatus.ToString();
-            var filtered = await _matchService.GetByStatusAsync(parsedStatus);
-            return View(filtered);
+        }
+        else
+        {
+            ViewBag.CurrentStatus = string.Empty;
         }
 
-        ViewBag.CurrentStatus = string.Empty;
-        var matches = await _matchService.GetAllAsync();
+        ViewBag.CurrentSearch = search ?? string.Empty;
+
+        var matches = await _matchService.GetAllAsync(matchStatus, search);
         return View(matches);
     }
 
