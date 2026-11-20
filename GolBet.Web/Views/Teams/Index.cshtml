@@ -1,0 +1,31 @@
+@model IEnumerable<GolBet.Entities.Team>
+@{
+    ViewData["Title"] = "Gestión de Equipos";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>🛡️ Gestión de Equipos</h2>
+</div>
+
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th>Escudo</th>
+            <th>Nombre</th>
+            <th>Ciudad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var team in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@(team.CrestUrl ?? "https://placehold.co/80x80/006633/ffffff?text=FC")"
+                         alt="@team.Name" width="40" height="40" class="rounded" />
+                </td>
+                <td class="fw-bold">@team.Name</td>
+                <td>@(team.City ?? "Colombia")</td>
+            </tr>
+        }
+    </tbody>
+</table>

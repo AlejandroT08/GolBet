@@ -6,21 +6,19 @@ public static class MatchStatusExtensions
 {
     public static string ToSpanishLabel(this MatchStatus status) => status switch
     {
-        MatchStatus.Programado => "Programado",
-        MatchStatus.EnJuego => "En Juego",
-        MatchStatus.Finalizado => "Finalizado",
-        MatchStatus.Cancelado => "Cancelado",
+        MatchStatus.Scheduled => "Programado",
+        MatchStatus.InProgress => "En juego",
+        MatchStatus.Finished => "Finalizado",
+        MatchStatus.Cancelled => "Cancelado",
         _ => status.ToString()
     };
 
     public static string ToBadgeCssClass(this MatchStatus status) => status switch
     {
-        MatchStatus.Programado => "bg-primary",
-        MatchStatus.EnJuego => "bg-danger",
-        MatchStatus.Finalizado => "bg-success",
-        MatchStatus.Cancelado => "bg-secondary",
-        _ => "bg-dark"
+        MatchStatus.Scheduled => "bg-primary",
+        MatchStatus.InProgress => "bg-warning text-dark",
+        MatchStatus.Finished => "bg-secondary",
+        MatchStatus.Cancelled => "bg-dark",
+        _ => "bg-secondary"
     };
 }
-
-

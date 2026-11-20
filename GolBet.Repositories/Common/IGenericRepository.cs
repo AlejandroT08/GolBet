@@ -10,7 +10,11 @@ public interface IGenericRepository<T> where T : AuditableEntity
 
     Task AddAsync(T entity);
 
+    Task UpdateAsync(T entity);
+
     void Update(T entity);
+
+    Task DeleteAsync(T entity);
 
     void Remove(T entity);
 

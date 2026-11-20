@@ -4,12 +4,11 @@ using GolBet.Repositories.Common;
 using GolBet.Repositories.Data;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace GolBet.Repositories;
 
 public class MatchRepository : GenericRepository<Match>, IMatchRepository
 {
-    public MatchRepository(GolBetDbContext context) : base(context)
+    public MatchRepository(AppDbContext context) : base(context)
     {
     }
 
@@ -33,7 +32,7 @@ public class MatchRepository : GenericRepository<Match>, IMatchRepository
         }
 
         return await query
-            .OrderBy(m => m.MatchDate)
+            .OrderBy(m => m.Date)
             .ToListAsync();
     }
 
@@ -48,4 +47,3 @@ public class MatchRepository : GenericRepository<Match>, IMatchRepository
     public async Task<IEnumerable<Match>> GetByStatusAsync(MatchStatus status) =>
         await GetAllWithTeamsAsync(status);
 }
-

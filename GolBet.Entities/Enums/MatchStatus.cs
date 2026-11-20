@@ -2,8 +2,14 @@ namespace GolBet.Entities.Enums;
 
 public enum MatchStatus
 {
-    Programado = 0,
-    EnJuego = 1,
-    Finalizado = 2,
-    Cancelado = 3
+    Scheduled = 0,
+    InProgress = 1,
+    Finished = 2,
+    Cancelled = 3,
+
+    // Aliases for compatibility:
+    Programado = Scheduled,
+    EnJuego = InProgress,
+    Finalizado = Finished,
+    Cancelado = Cancelled
 }

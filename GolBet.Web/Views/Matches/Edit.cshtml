@@ -1,0 +1,56 @@
+@model GolBet.Services.DTOs.MatchFormDto
+@{
+    ViewData["Title"] = "Editar partido";
+}
+
+<div class="col-lg-6 mx-auto">
+    <h2 class="mb-3">Editar partido</h2>
+
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+        <div class="mb-3">
+            <label asp-for="HomeTeamId" class="form-label"></label>
+            <select asp-for="HomeTeamId" asp-items="ViewBag.Teams" class="form-select"></select>
+            <span asp-validation-for="HomeTeamId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="AwayTeamId" class="form-label"></label>
+            <select asp-for="AwayTeamId" asp-items="ViewBag.Teams" class="form-select"></select>
+            <span asp-validation-for="AwayTeamId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Date" class="form-label"></label>
+            <input asp-for="Date" type="datetime-local" class="form-control" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label asp-for="HomeOdds" class="form-label"></label>
+                <input asp-for="HomeOdds" type="number" step="0.01" class="form-control" />
+                <span asp-validation-for="HomeOdds" class="text-danger"></span>
+            </div>
+            <div class="col-4">
+                <label asp-for="DrawOdds" class="form-label"></label>
+                <input asp-for="DrawOdds" type="number" step="0.01" class="form-control" />
+                <span asp-validation-for="DrawOdds" class="text-danger"></span>
+            </div>
+            <div class="col-4">
+                <label asp-for="AwayOdds" class="form-label"></label>
+                <input asp-for="AwayOdds" type="number" step="0.01" class="form-control" />
+                <span asp-validation-for="AwayOdds" class="text-danger"></span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Actualizar partido</button>
+        <a asp-action="Detail" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Cancelar</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

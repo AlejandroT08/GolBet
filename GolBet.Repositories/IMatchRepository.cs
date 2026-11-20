@@ -12,4 +12,3 @@ public interface IMatchRepository : IGenericRepository<Match>
 
     Task<IEnumerable<Match>> GetByStatusAsync(MatchStatus status);
 }
-

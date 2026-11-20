@@ -6,10 +6,10 @@ namespace GolBet.Repositories.Common;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : AuditableEntity
 {
-    protected readonly GolBetDbContext _context;
+    protected readonly AppDbContext _context;
     protected readonly DbSet<T> _dbSet;
 
-    public GenericRepository(GolBetDbContext context)
+    public GenericRepository(AppDbContext context)
     {
         _context = context;
         _dbSet = context.Set<T>();
@@ -21,11 +21,26 @@ public class GenericRepository<T> : IGenericRepository<T> where T : AuditableEnt
     public async Task<T?> GetByIdAsync(int id) =>
         await _dbSet.FindAsync(id);
 
-    public async Task AddAsync(T entity) =>
+    public async Task AddAsync(T entity)
+    {
         await _dbSet.AddAsync(entity);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(T entity)
+    {
+        _dbSet.Update(entity);
+        await _context.SaveChangesAsync();
+    }
 
     public void Update(T entity) =>
         _dbSet.Update(entity);
+
+    public async Task DeleteAsync(T entity)
+    {
+        _dbSet.Remove(entity);
+        await _context.SaveChangesAsync();
+    }
 
     public void Remove(T entity) =>
         _dbSet.Remove(entity);
